@@ -43,8 +43,25 @@ jobs:
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       -
-        name: Build the stack
-        run: docker-compose -f docker/docker-compose.yml up
+        name: Build and export to Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          load: true
+          tags: ${{ env.TEST_TAG }}
+      -
+        name: Test
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.LATEST_TAG }}
+
 
         
           
