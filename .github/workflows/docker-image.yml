@@ -35,9 +35,10 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: 'oracle'
+          cache: 'maven'
       - name: Build with Maven
-        run: mvn clean package dockerfile:build
+        run: mvn clean package dockerfile:build --file pom.xml
       
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
