@@ -44,7 +44,7 @@ jobs:
       # https://github.com/docker/build-push-action
       -
         name: Build the stack
-        run: docker-compose -f docker-compose.yml up
+        run: docker-compose -f docker/docker-compose.yml up
 
         
           
